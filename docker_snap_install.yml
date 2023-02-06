@@ -1,15 +1,19 @@
 ---
-- name: Install Docker
+- name: Install Docker using snap
   hosts: all
-  become: yes
   tasks:
     - name: Install snapd
       apt:
         name: snapd
         state: present
 
-    - name: Install Docker via snap
-      snap:
-        name: docker
-        state: present
-        channel: latest/stable
+    - name: Install Docker using snap
+      shell: snap install docker
+      args:
+        creates: /snap/bin/docker
+
+    - name: Start and enable Docker service
+      service:
+        name: snap.docker.dockerd
+        state: started
+        enabled: yes
