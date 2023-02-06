@@ -1,7 +1,7 @@
 ---
 - name: Install Docker using snap
   hosts: all
-  become: true
+  become: yes
   tasks:
     - name: Install snapd
       apt:
