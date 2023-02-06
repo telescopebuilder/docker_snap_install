@@ -1,0 +1,19 @@
+---
+- name: Install Docker using snap
+  hosts: all
+  tasks:
+    - name: Install the snapd package
+      apt:
+        name: snapd
+        state: present
+
+    - name: Install Docker from the snap store
+      shell: snap install docker
+      args:
+        executable: /bin/bash
+
+    - name: Start the Docker service
+      service:
+        name: snap.docker.dockerd
+        state: started
+        enabled: yes
